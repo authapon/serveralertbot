@@ -195,6 +195,28 @@ func uptime(htype, hostname string) {
 	}
 }
 
+func startHost(htype, hostname string) {
+	t := time.Now().Unix()
+	found := false
+
+	for i := range hosts {
+		if hosts[i].htype == htype && hosts[i].name == hostname {
+			found = true
+		}
+	}
+
+	if !found {
+		hostx := host{
+			htype: htype,
+			name:  hostname,
+			state: 0,
+			alert: t + downDuration,
+		}
+
+		hosts = append(hosts, hostx)
+	}
+}
+
 func ShowService(uid int64, service, bot string) {
 	hserviceTXT := ""
 
@@ -287,8 +309,13 @@ func coreLoop() {
 			fmt.Printf("Checking\n")
 			checkingHOST()
 		default:
-			datax := strings.SplitN(data, " ", 2)
-			uptime(datax[0], datax[1])
+			datax := strings.SplitN(data, " ", 3)
+			switch datax[0] {
+			case "up":
+				uptime(datax[1], datax[2])
+			case "start":
+				startHost(datax[1], datax[2])
+			}
 		}
 	}
 }
