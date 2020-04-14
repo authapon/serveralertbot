@@ -307,14 +307,14 @@ func coreLoop() {
 			}(arg[1], arg[2], arg[3])
 		case "checking":
 			fmt.Printf("Checking\n")
-			checkingHOST()
+			go checkingHOST()
 		default:
 			datax := strings.SplitN(data, " ", 3)
 			switch datax[0] {
 			case "up":
-				uptime(datax[1], datax[2])
+				go uptime(datax[1], datax[2])
 			case "start":
-				startHost(datax[1], datax[2])
+				go startHost(datax[1], datax[2])
 			}
 		}
 	}
