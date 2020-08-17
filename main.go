@@ -93,7 +93,7 @@ func makeBot(token string, btype string) {
 					default:
 						for i := range users {
 							if users[i].id == uid {
-								SendMsg(uid, "Sorry! I don't understand the command.", bbtype)
+								go SendMsg(uid, "Sorry! I don't understand the command.", bbtype)
 							}
 						}
 					}
@@ -175,7 +175,7 @@ func uptime(htype, hostname string) {
 	for i := range hosts {
 		if hosts[i].htype == htype && hosts[i].name == hostname {
 			if hosts[i].state == 1 {
-				alertUp(i)
+				go alertUp(i)
 			}
 			hosts[i].state = 0
 			hosts[i].alert = t + downDuration
@@ -234,7 +234,7 @@ func ShowService(uid int64, service, bot string) {
 		hserviceTXT = "no service\n"
 	}
 
-	SendMsg(uid, fmt.Sprintf("%s\nService: *%s*\n\n%s", timeTXT(), service, hserviceTXT), bot)
+	go SendMsg(uid, fmt.Sprintf("%s\nService: *%s*\n\n%s", timeTXT(), service, hserviceTXT), bot)
 }
 
 func ShowServiceState(uid int64, service, bot string, state byte) {
@@ -257,7 +257,7 @@ func ShowServiceState(uid int64, service, bot string, state byte) {
 		hserviceTXT = "nothing\n"
 	}
 
-	SendMsg(uid, fmt.Sprintf("%s\nService: *%s*\n\n%s", timeTXT(), service, hserviceTXT), bot)
+	go SendMsg(uid, fmt.Sprintf("%s\nService: *%s*\n\n%s", timeTXT(), service, hserviceTXT), bot)
 }
 
 func coreLoop() {
@@ -312,9 +312,9 @@ func coreLoop() {
 			datax := strings.SplitN(data, " ", 3)
 			switch datax[0] {
 			case "up":
-				go uptime(datax[1], datax[2])
+				uptime(datax[1], datax[2])
 			case "start":
-				go startHost(datax[1], datax[2])
+				startHost(datax[1], datax[2])
 			}
 		}
 	}
