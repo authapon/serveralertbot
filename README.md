@@ -1,1 +1,1 @@
-# Server Alert BOT by Telegram
+# Server Alert BOT on Telegram
