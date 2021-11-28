@@ -367,6 +367,7 @@ func checkLoop() {
 }
 
 func main() {
+	configProcess()
 	go coreLoop()
 	go UDPserver()
 	go makeBot(tokenTGup, "up")

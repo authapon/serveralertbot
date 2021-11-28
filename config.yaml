@@ -1,0 +1,13 @@
+tokentgup: "1234:tokenGenerateFromBotFather for Up   Alert"
+tokentgdown: "1234:tokenGenerateFromBotFather for Down Alert"
+secret: "Secret text that share with agentalert"
+downduration: 120
+checkingloop: 30
+repeatduration: 3600
+port: ":9055"
+users:
+  - name: "Group1"
+    id: -1
+  - name: "User1"
+    id: 1
+
